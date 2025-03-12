@@ -1,0 +1,54 @@
+# Objective
+
+Update the nanuak-youtube-history-search project to include a field for minimum duration and a separate field for maximum duration.
+Make the fields tab navigable.
+Update the search logic to respect the new duration filters.
+
+You must always provide the full content of changed files in the structured manner.
+
+Here is the code which will be used to parse your structured output
+
+===
+
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$StructuredFile
+)
+
+# Read the entire structured file content
+$rawContent = Get-Content -Path $StructuredFile -Raw
+
+# Split on '=== file: '
+# The first split element may be empty if the text starts immediately with '=== file', so we ignore it if empty
+$sections = $rawContent -split "=== file: "
+
+foreach ($section in $sections) {
+    $section = $section.Trim()
+    if ($section) {
+        # The file name is on the first line
+        $lines = $section -split "`r?`n"
+        $fileName = $lines[0].Trim()
+
+        # Everything after that line is file content
+        $fileContent = $lines[1..($lines.Count - 1)] -join "`r`n"
+
+        # In case we have an === end or another marker at the end, let's remove anything after '==='
+        if ($fileContent -match "(?s)(.*?)===.*") {
+            $fileContent = $Matches[1]
+        }
+
+        # Ensure the directory exists
+        $dir = Split-Path $fileName
+        if (!(Test-Path $dir)) {
+            New-Item -ItemType Directory -Force -Path $dir | Out-Null
+        }
+
+        # Write the file
+        Set-Content -Path $fileName -Value $fileContent
+        Write-Host "Wrote $fileName"
+    }
+}
+
+===
+===
+===
