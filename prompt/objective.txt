@@ -1,12 +1,11 @@
 # Objective
 
-Update the nanuak-youtube-history-search project to include a field for minimum duration and a separate field for maximum duration.
-Make the fields tab navigable.
-Update the search logic to respect the new duration filters.
+Add an "ago" field that takes a duration ("23d") and filters the search results by videos only watched within that past duration.
+Add the most recently watched duration to the item text, e.g., "1w6d ago"
 
-You must always provide the full content of changed files in the structured manner.
+## Output constraints
 
-Here is the code which will be used to parse your structured output
+Here is the code which will be used to parse your response in a structured manner:
 
 ===
 

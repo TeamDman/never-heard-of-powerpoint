@@ -23,3 +23,12 @@ Download the audio for those videos
 # Step 5
 
 Transcribe the audio using WhisperX
+
+
+# Search Criteria
+
+25+ minutes
+< 6 hours
+2 speakers
+#podcast or #seminar or #story or #talking
+not #music or #gaming
